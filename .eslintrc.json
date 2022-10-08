@@ -30,6 +30,8 @@
         "react/react-in-jsx-scope": "off",
         "react/prop-types": "off",
         "@typescript-eslint/no-floating-promises": "off",
-        "@typescript-eslint/strict-boolean-expressions": "off"
+        "@typescript-eslint/strict-boolean-expressions": "off",
+        "@typescript-eslint/no-invalid-void-type": "off",
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }
