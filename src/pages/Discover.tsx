@@ -5,6 +5,7 @@ import { useGetTopChartsQuery } from "../redux/services/shazamCore";
 
 const Discover: React.FC = () => {
     const { data, isFetching, error } = useGetTopChartsQuery();
+    console.log(data, isFetching, error);
     const genreTitle = "Pop";
     return (
         <div className="flex flex-col">
