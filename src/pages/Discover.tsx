@@ -1,12 +1,21 @@
-// import { Error, Loader, SongCard } from "../components";
-import { genres } from "../assets/constants";
-import { SongCard } from "../components";
-import { useGetTopChartsQuery } from "../redux/services/shazamCore";
+import { useAppSelector } from "redux/hooks";
+
+import { genres } from "assets/constants";
+import { Error, Loader, SongCard } from "components";
+import { useGetTopChartsQuery } from "redux/services/shazamCore";
 
 const Discover: React.FC = () => {
+    // const dispatch = useAppDispatch();
+    const { activeSong, isPlaying } = useAppSelector((state) => state.player);
+
     const { data, isFetching, error } = useGetTopChartsQuery();
-    console.log(data, isFetching, error);
+
     const genreTitle = "Pop";
+
+    if (isFetching) return <Loader title="Loading Songs..." />;
+
+    if (error) return <Error />;
+
     return (
         <div className="flex flex-col">
             <div className="w-full flex justify-between items-center sm:flex-row flex-col mt-4 mb-10">
@@ -24,8 +33,15 @@ const Discover: React.FC = () => {
                 </select>
             </div>
             <div className="flex flex-wrap sm:justify-start justify-center gap-8">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((song, i) => (
-                    <SongCard key={song} song={song} i={i} />
+                {data?.map((song, i) => (
+                    <SongCard
+                        key={song.key}
+                        song={song}
+                        isPlaying={isPlaying}
+                        activeSong={activeSong}
+                        data={data}
+                        i={i}
+                    />
                 ))}
             </div>
         </div>
